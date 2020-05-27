@@ -20,7 +20,7 @@ public class SimpleEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
     @Autowired
-    private TestClass testClass111;
+    private TestClass testClass222;
 
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
