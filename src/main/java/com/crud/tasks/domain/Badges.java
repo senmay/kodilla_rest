@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Badges {
