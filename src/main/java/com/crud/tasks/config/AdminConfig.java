@@ -12,5 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminConfig {
     @Value("${admin.mail}")
     private String adminMail;
+
+    @Value("${admin.name}")
+    private String adminName;
 }
 
