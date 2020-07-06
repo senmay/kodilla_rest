@@ -40,7 +40,7 @@ public class MailCreatorService {
         context.setVariable("tasks_url", "https://localhost:8888/tasks_frontend");
         context.setVariable("button", "Visit website");
         context.setVariable("admin_config", adminConfig);
-        context.setVariable("company_config", companyDetails);
+        context.setVariable("company_name", companyDetails.getOwnerName());
         context.setVariable("show_button", true);
         context.setVariable("is_friend", false);
         context.setVariable("application_functionality", functionality);
@@ -65,6 +65,7 @@ public class MailCreatorService {
         context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend");
         context.setVariable("button", "Visit Website");
         context.setVariable("admin_name", adminConfig.getAdminName());
+        context.setVariable("company_name", companyDetails.getOwnerName());
         context.setVariable("company_details", companyDetails);
         context.setVariable("show_button", false);
         context.setVariable("is_friend", false);

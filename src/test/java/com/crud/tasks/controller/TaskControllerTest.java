@@ -50,7 +50,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDtoList(new ArrayList<>())).thenReturn(taskDtoList);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
     }
@@ -63,7 +63,7 @@ public class TaskControllerTest {
         when(taskMapper.mapToTaskDtoList(anyList())).thenReturn(taskDtoList);
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(1)))
@@ -81,10 +81,8 @@ public class TaskControllerTest {
         when(service.getTask(1L)).thenReturn(Optional.of(task));
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .param("taskId", "1"))
+        mockMvc.perform(get("/v1/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON).param("taskId", "1"))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("Test")))
@@ -97,8 +95,10 @@ public class TaskControllerTest {
         when(service.getTask(1L)).thenReturn(Optional.empty());
 
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/tasks/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .param("taskId", "1"))
                 .andExpect(status().isNotFound());
     }
 
@@ -109,8 +109,10 @@ public class TaskControllerTest {
         when(service.getTask(1L)).thenReturn(Optional.empty());
 
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/v1/tasks/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .param("taskId", "2"))
                 .andExpect(status().is(404));
     }
 
@@ -122,7 +124,7 @@ public class TaskControllerTest {
         when(service.getTask(1L)).thenReturn(Optional.of(task));
 
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask")
+        mockMvc.perform(delete("/v1/tasks/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("taskId", "1"))
@@ -142,7 +144,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
         //When & Then
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().isOk())
@@ -162,7 +164,7 @@ public class TaskControllerTest {
         String jsonContent = gson.toJson(taskDto);
 
         //When & Then
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonContent))
                 .andExpect(status().is(200));
