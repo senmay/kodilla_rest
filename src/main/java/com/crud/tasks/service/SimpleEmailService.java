@@ -32,7 +32,6 @@ public class SimpleEmailService {
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
         }
-
     }
 
     private SimpleMailMessage createMailMessage(final Mail mail) {
@@ -51,7 +50,8 @@ public class SimpleEmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            messageHelper.setText(mailCreatorService.buildScheduledEmail(mail.getMessage()), true);
+
         };
     }
 }
